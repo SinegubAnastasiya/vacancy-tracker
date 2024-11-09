@@ -1,4 +1,3 @@
-import { log } from 'console';
 import pool from '../db';
 
 async function createVacancyDB(title: string, description: string, logo) {
@@ -23,4 +22,13 @@ async function createVacancyDB(title: string, description: string, logo) {
     }
 }
 
-export { createVacancyDB };
+async function getAllVacanciesDB() {
+    const client = await pool.connect();
+
+    const sql: string = 'SELECT * from vacancies';
+    const { rows } = await client.query(sql);
+    client.release();
+    return rows;
+}
+
+export { createVacancyDB, getAllVacanciesDB };
