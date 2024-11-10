@@ -1,0 +1,27 @@
+.modalWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+
+    h2 {
+        margin: 0 0 10px;
+    }
+
+    input {
+        width: 80%;
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        margin-right: 10px;
+    }
+}
