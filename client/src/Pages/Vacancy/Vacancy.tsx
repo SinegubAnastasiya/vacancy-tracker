@@ -56,20 +56,21 @@ const Vacancy = () => {
         getAllVacancies()
     }, [])
     
-    return <div>
+    return <div className={style.wrapper}>
         <h1>Vacancies</h1>
 
-        {vacancies.map((el: any) => 
-            <div key={el.id} className={style.section}>
-                <div>
-                    <h1>{el.title}</h1>
-                    <p>{el.description}</p>
+        <div className={style.vacancyInfo}>
+            {vacancies.map((el: any) => 
+                <div key={el.id} className={style.item}>
+                    <div className={style.descript}>
+                        <h1>{el.title}</h1>
+                        <p>{el.description}</p>
+                    </div>
+                    <button className={style.btnResp} onClick={handleOpenModal}>Response</button>
                 </div>
-                <button onClick={handleOpenModal}>Response</button>
-            </div>
-        )}
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit}></Modal>
-        
+            )}
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit}></Modal>
+        </div>
     </div>
 }
 
