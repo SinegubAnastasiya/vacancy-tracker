@@ -23,7 +23,7 @@ const Vacancy = () => {
         const data = { userEmail: inputValue, vacancyId }
         try {
             const response = await axios.post('http://localhost:3003/response', data);
-            console.log('Successed: ', response.data);
+            console.log('Succeed: ', response.data);
         } catch (error: any) {
             if (error.message) {
                 console.error('Sending error: ', error.response.data)
@@ -58,8 +58,10 @@ const Vacancy = () => {
                             <h1>{el.title}</h1>
                             <p>{el.description}</p>
                         </div>
-                        <button className={style.btnResp} onClick={() => handleVacancyClick(el.id)}>Response</button>
-                        <p>Responses amount {el.responses}</p>
+                        <div className={style.respInfo}>
+                            <button className={style.btnResp} onClick={() => handleVacancyClick(el.id)}>Response</button>
+                            <p>Responses amount: {el.responses}</p>
+                        </div>
                     </div>
                 )}
             </div>

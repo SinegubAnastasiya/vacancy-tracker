@@ -19,9 +19,12 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
 
     return <div className={style.modalWrapper}>
         <div className={style.modal}>
-            <h2>Input data</h2>
+            <h2>Fill the form</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={inputValue} onChange={handleInputChange} placeholder='Enter email'></input>
+                <div className={style.inputBox}>
+                    <label>Enter the email</label>
+                    <input type="text" value={inputValue} onChange={handleInputChange} placeholder='Email'></input>
+                </div>
                 <button type='submit'>Response</button>
                 <button type='button' onClick={onClose}>Cancel</button>
             </form>
