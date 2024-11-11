@@ -1,4 +1,4 @@
-import Vacancy from './Pages/Vacancy/Vacancy'
+import Vacancy from './pages/Vacancy/Vacancy'
 import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
 

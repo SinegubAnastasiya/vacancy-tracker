@@ -24,11 +24,21 @@ async function createVacancyDB(title: string, description: string, logo) {
 
 async function getAllVacanciesDB() {
     const client = await pool.connect();
+    const vacanciesCount = 'SELECT COUNT(*) from vacancies'
+    const vacancyResp = `SELECT v.id, v.title, v.description, COUNT(r.vacancyId) AS responses
+        FROM vacancies v LEFT JOIN responses r ON v.id = r.vacancyId
+        GROUP BY v.id
+        ORDER BY v.id;`
+    const { rows: totalResp } = await client.query(vacanciesCount);
+    const { rows:  items} = await client.query(vacancyResp);
+    const total = totalResp[0].count;
 
-    const sql: string = 'SELECT * from vacancies';
-    const { rows } = await client.query(sql);
     client.release();
-    return rows;
+    
+    return {
+        items,
+        total
+    };
 }
 
 export { createVacancyDB, getAllVacanciesDB };

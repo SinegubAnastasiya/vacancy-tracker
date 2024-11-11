@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import routeVacancy from './controller/vacancy.controller'
+import routeResponse from './controller/response.controller'
 import cors from 'cors';
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(
 app.use(bodyParser.json());
 
 app.use('/vacancy', routeVacancy);
+app.use('/response', routeResponse);
 
 app.use((er: any, _req: Request, res: Response, next: NextFunction) => {
     res.send(er.message);

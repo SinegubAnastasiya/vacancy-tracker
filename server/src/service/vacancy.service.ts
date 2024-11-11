@@ -8,7 +8,7 @@ async function createVacancy(title: string, description: string, logo) {
 
 async function getAllVacancies() {
     const data = await getAllVacanciesDB();
-    if(!data.length) throw new Error('Array is empty');
+    if(!data.items.length) throw new Error('Array is empty');
     return data;
 }
 
