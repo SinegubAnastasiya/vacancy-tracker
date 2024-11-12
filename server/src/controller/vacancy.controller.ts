@@ -2,11 +2,13 @@ import express, { Request, Response } from 'express';
 const route = express.Router();
 import { buildResponse } from '../helper/buildResponse';
 import { createVacancy, getAllVacancies, getLogoById } from '../service/vacancy.service';
+import { iVacancy } from '../interfaces';
+import { isValidInfo } from '../helper/validation'
 
-route.post('/', async (req: Request, res: Response) => {
+route.post('/', isValidInfo, async (req: Request, res: Response) => {
     try {
         const { title, description, logo } = req.body;
-        const data = await createVacancy(title, description, logo);
+        const data: iVacancy[] = await createVacancy(title, description, logo);
         buildResponse(res, 200, data);
     } catch (error: any) {
         buildResponse(res, 404, error.message);
@@ -26,7 +28,6 @@ route.get('/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const data: any = await getLogoById(id);
-        // res.set('Content-Type', 'image/jpeg')
         buildResponse(res, 200, data);
     } catch (error: any) {
         buildResponse(res, 404, error.message);

@@ -1,6 +1,7 @@
 import pool from '../db';
+import { iResponse } from '../interfaces';
 
-async function createResponseDB(userEmail: string, vacancyId: number) {
+async function createResponseDB(userEmail: string, vacancyId: number): Promise<iResponse[]> {
     const client = await pool.connect();
 
     try {
@@ -22,7 +23,7 @@ async function createResponseDB(userEmail: string, vacancyId: number) {
     }
 }
 
-async function getAllResponsesDB() {
+async function getAllResponsesDB(): Promise<iResponse[]> {
     const client = await pool.connect();
 
     const sql: string = 'SELECT * from responses';

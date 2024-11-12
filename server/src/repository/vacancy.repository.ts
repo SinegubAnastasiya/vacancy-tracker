@@ -1,6 +1,7 @@
 import pool from '../db';
+import { iVacancy } from '../interfaces';
 
-async function createVacancyDB(title: string, description: string, logo) {
+async function createVacancyDB(title: string, description: string, logo: string): Promise<iVacancy[]> {
     const client = await pool.connect();
 
     try {
@@ -40,7 +41,7 @@ async function getAllVacanciesDB() {
     };
 }
 
-async function getLogoByIdDB(id) {
+async function getLogoByIdDB(id: number) {
     const client = await pool.connect();
 
     const sql = 'SELECT logo from vacancies WHERE id = $1'
