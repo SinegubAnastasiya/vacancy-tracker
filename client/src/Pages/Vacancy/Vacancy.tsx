@@ -43,7 +43,6 @@ const Vacancy = () => {
         };
         getImage();
     }, [dispatch])
-    console.log(error);
     
     return <div>
         <Modal error={error} isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit}></Modal>

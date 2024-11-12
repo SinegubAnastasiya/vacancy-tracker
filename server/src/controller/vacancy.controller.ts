@@ -5,7 +5,7 @@ import { createVacancy, getAllVacancies, getLogoById } from '../service/vacancy.
 import { iVacancy } from '../interfaces';
 import { isValidInfo } from '../helper/validation'
 
-route.post('/', async (req: Request, res: Response) => {
+route.post('/', isValidInfo, async (req: Request, res: Response) => {
     try {
         const { title, description, logo } = req.body;
         const data: iVacancy[] = await createVacancy(title, description, logo);
