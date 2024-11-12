@@ -1,4 +1,4 @@
-import { createVacancyDB, getAllVacanciesDB } from '../repository/vacancy.repository';
+import { createVacancyDB, getAllVacanciesDB, getLogoByIdDB } from '../repository/vacancy.repository';
 
 async function createVacancy(title: string, description: string, logo) {
     const data = await createVacancyDB(title, description, logo);
@@ -12,4 +12,10 @@ async function getAllVacancies() {
     return data;
 }
 
-export { createVacancy, getAllVacancies };
+async function getLogoById(id) {
+    const data = await getLogoByIdDB(id);
+    // if(!data.items.length) throw new Error('Array is empty');
+    return data;
+}
+
+export { createVacancy, getAllVacancies, getLogoById };

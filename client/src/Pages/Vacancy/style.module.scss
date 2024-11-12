@@ -1,5 +1,5 @@
 .wrapper {
-    width: 770px;
+    width: 800px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -32,21 +32,28 @@
         border-radius: 12px;
         padding: 25px;
         position: relative;
+        width: 800px;
 
         .descript {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: flex-start;
-            
-            h1 {
-                font: 600 25px Inter;
-                color: #5E96FC;
-                text-transform: none;
-            }
-    
-            p {
-                font: 400 17px Inter;
-                color: #232134;
+
+            .itemInfo {
+                display: flex;
+                flex-direction: column;
+                width: 700px;
+                
+                h1 {
+                    font: 600 25px Inter;
+                    color: #5E96FC;
+                    text-transform: none;
+                }
+        
+                p {
+                    font: 400 17px Inter;
+                    color: #232134;
+                }
             }
         }
 
@@ -72,7 +79,7 @@
     }
 
     .btnResp:hover {
-        background-color: #4781ed; /* Green */
+        background-color: #4781ed;
         color: white;
     }
 }

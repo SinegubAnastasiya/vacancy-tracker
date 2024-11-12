@@ -1,7 +1,5 @@
 import Vacancy from './pages/Vacancy/Vacancy'
 import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react'
-
 import './App.css'
 
 function App() {

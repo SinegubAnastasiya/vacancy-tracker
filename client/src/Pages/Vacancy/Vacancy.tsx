@@ -1,5 +1,6 @@
 import style from './style.module.scss';
 import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Modal from '../../components/Modal/Modal';
 
@@ -8,6 +9,7 @@ const Vacancy = () => {
     const [total, setTotal] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [vacancyId, setVacancyId] = useState(null);
+    const [imageSrc, setImageSrc] = useState('');
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -40,6 +42,19 @@ const Vacancy = () => {
         setVacancies(response.data.items)
         console.log(response.data.items);
         setTotal(response.data.total)
+
+        const getImage = async () => {
+            try {
+                const response = await axios.get('http://localhost:3003/vacancy/1')
+                const image = response.data.logo
+                console.log(image);
+                
+                setImageSrc(image)
+            } catch (error) {
+                console.error('Error fetching image:', error);
+            }
+        }
+        getImage()
     }
 
     useEffect(() => {
@@ -55,8 +70,13 @@ const Vacancy = () => {
                 {vacancies.map((el: any) => 
                     <div key={el.id} className={style.item}>
                         <div className={style.descript}>
-                            <h1>{el.title}</h1>
-                            <p>{el.description}</p>
+                            <div className={style.itemInfo}>
+                                <h1>{el.title}</h1>
+                                <p>{el.description}</p>
+                            </div>
+                            <div>
+                                {imageSrc ? ( <img src={imageSrc} width='70px' height='70px'/> ) : ( <p>Loading image...</p> )}
+                            </div>
                         </div>
                         <div className={style.respInfo}>
                             <button className={style.btnResp} onClick={() => handleVacancyClick(el.id)}>Response</button>

@@ -32,13 +32,23 @@ async function getAllVacanciesDB() {
     const { rows: totalResp } = await client.query(vacanciesCount);
     const { rows:  items} = await client.query(vacancyResp);
     const total = totalResp[0].count;
-
-    client.release();
     
+    client.release();
     return {
         items,
         total
     };
 }
 
-export { createVacancyDB, getAllVacanciesDB };
+async function getLogoByIdDB(id) {
+    const client = await pool.connect();
+
+    const sql = 'SELECT logo from vacancies WHERE id = $1'
+    const { rows: image } = await client.query(sql, [id]);
+    const logo = image[0]
+    
+    client.release();
+    return logo
+}
+
+export { createVacancyDB, getAllVacanciesDB, getLogoByIdDB };
