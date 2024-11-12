@@ -13,14 +13,14 @@ const isValidInfo = (req, _res, next) => {
 }
 
 const isValidEmail = (req, _res, next) => {
-    if (!req.body.hasOwnProperty('userEmail')) throw new Error('There is no email');
+    if (!req.body.hasOwnProperty('useremail')) throw new Error('There is no email');
   
-    const { userEmail } = req.body;
+    const { useremail } = req.body; 
   
-    if (!userEmail.length) throw new Error('Email is empty');
-    if (!/^[\w]+@[a-z]+\.[a-z]{2,4}/gm.test(userEmail)) throw new Error('Email is invalid');
+    if (!useremail.length) throw new Error('Email is empty');
+    if (!/^[\w]+@[a-z]+\.[a-z]{2,4}/gm.test(useremail)) throw new Error('Email is invalid');
   
     next();
 }
   
-  export { isValidInfo, isValidEmail };
+export { isValidInfo, isValidEmail };

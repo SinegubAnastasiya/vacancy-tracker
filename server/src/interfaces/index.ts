@@ -10,4 +10,4 @@ interface iResponse {
     vacancyId?: number;
 }
   
-  export { iVacancy, iResponse };
+export { iVacancy, iResponse };

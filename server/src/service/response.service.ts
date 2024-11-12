@@ -1,8 +1,8 @@
 import { iResponse } from '../interfaces';
 import { createResponseDB, getAllResponsesDB } from '../repository/response.repository';
 
-async function createResponse(userEmail: string, vacancyId: number): Promise<iResponse[]> {
-    const data: iResponse[] = await createResponseDB(userEmail, vacancyId);
+async function createResponse(useremail: string, vacancyid: number): Promise<iResponse[]> {
+    const data: iResponse[] = await createResponseDB(useremail, vacancyid);
     if (!data.length) throw new Error('The database does not created');
     return data;
 }

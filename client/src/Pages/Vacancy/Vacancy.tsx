@@ -1,68 +1,52 @@
 import style from './style.module.scss';
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react"
 import { useSelector, useDispatch } from 'react-redux';
+import { openModal, closeModal, getVacancies, setImageSrc } from '../../slice/vacancy.slice';
 import axios from 'axios';
 import Modal from '../../components/Modal/Modal';
 
 const Vacancy = () => {
-    const [vacancies, setVacancies] = useState([]);
-    const [total, setTotal] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [vacancyId, setVacancyId] = useState(null);
-    const [imageSrc, setImageSrc] = useState('');
+    const dispatch = useDispatch();
+    const { 
+        vacancies, 
+        total, 
+        isModalOpen, 
+        vacancyid, 
+        imageSrc 
+    } = useSelector((state) => state.vacancies)
+
+    const [error, setError] = useState(null)
 
     const handleCloseModal = () => {
-        setIsModalOpen(false);
+       dispatch(closeModal())
     }
 
-    const handleVacancyClick = (id) => {
-        setVacancyId(id)
-        console.log('Vacancy id: ', id);
-        setIsModalOpen(true);
+    const handleVacancyClick = (id: number) => {
+        dispatch(openModal(id))
     }
 
-    const handleSubmit = async (inputValue) => {
-        const data = { userEmail: inputValue, vacancyId }
-        try {
-            const response = await axios.post('http://localhost:3003/response', data);
-            console.log('Succeed: ', response.data);
-        } catch (error: any) {
-            if (error.message) {
-                console.error('Sending error: ', error.response.data)
-            } else if (error.request) {
-                console.error('Network error: ', error.request)
-            } else {
-                console.error('Error: ', error.message)
-            }
-        }
-    }
-
-    const getAllVacancies = async () => {
-        const response = await axios.get('http://localhost:3003/vacancy')
-        setVacancies(response.data.items)
-        console.log(response.data.items);
-        setTotal(response.data.total)
-
-        const getImage = async () => {
-            try {
-                const response = await axios.get('http://localhost:3003/vacancy/1')
-                const image = response.data.logo
-                console.log(image);
-                
-                setImageSrc(image)
-            } catch (error) {
-                console.error('Error fetching image:', error);
-            }
-        }
-        getImage()
+    const handleSubmit = async (inputValue: string) => {
+        const data = { useremail: inputValue, vacancyid }
+        const response = await axios.post('http://localhost:3003/response/', data);
+        setError(response.data)
     }
 
     useEffect(() => {
-        getAllVacancies()
-    }, [])
+        dispatch(getVacancies());
+        const getImage = async () => {
+            try {
+                const response = await axios.get('http://localhost:3003/vacancy/1');
+                dispatch(setImageSrc(response.data.logo));
+            } catch (error) {
+                console.error('Error fetching image:', error);
+            }
+        };
+        getImage();
+    }, [dispatch])
+    console.log(error);
     
     return <div>
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit}></Modal>
+        <Modal error={error} isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit}></Modal>
         <div className={style.wrapper}>
             <h1>Vacancies</h1>
             <h2>Total amount of vacancies: {total}</h2>
