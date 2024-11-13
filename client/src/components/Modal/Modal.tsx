@@ -15,7 +15,6 @@ const Modal = ({ isOpen, onSubmit, error }) => {
         e.preventDefault();
         await onSubmit(inputValue);
         setInputValue('')
-        if (typeof (error) == 'object') dispatch(closeModal());
     }
 
     if (!isOpen) return null;
@@ -28,7 +27,7 @@ const Modal = ({ isOpen, onSubmit, error }) => {
                     <div className={style.inputBox}>
                         <label>Enter the email</label>
                         <input type="text" value={inputValue} onChange={handleInputChange} placeholder='Email' />
-                        {typeof(error) == 'string' ? <div>{error}</div> : null}
+                        {typeof(error) == 'string' ? <div className={style.error}>{error}</div> : null}
                     </div>
                     <button type='submit'>Response</button>
                     <button type='button' onClick={() => dispatch(closeModal())}>Cancel</button>

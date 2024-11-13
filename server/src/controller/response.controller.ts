@@ -8,10 +8,9 @@ import { isValidEmail } from '../helper/validation';
 route.post('/', isValidEmail, async (req: Request, res: Response) => {
     try {
         const { useremail, vacancyid } = req.body;
-        console.log(req.body);
         const data: iResponse[] = await createResponse(useremail, vacancyid);
         buildResponse(res, 200, data);
-    } catch (error: any) {
+    } catch (error: any) {        
         buildResponse(res, 404, error.message);
     }
 })

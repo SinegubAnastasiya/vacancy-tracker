@@ -14,7 +14,6 @@ const Vacancy = () => {
         vacancyid, 
         imageSrc 
     } = useSelector((state) => state.vacancies)
-
     const [error, setError] = useState(null)
 
     const handleCloseModal = () => {
@@ -27,22 +26,26 @@ const Vacancy = () => {
 
     const handleSubmit = async (inputValue: string) => {
         const data = { useremail: inputValue, vacancyid }
-        const response = await axios.post('http://localhost:3003/response/', data);
-        setError(response.data)
+            const response = await axios.post('http://localhost:3003/response/', data);
+            setError(response.data)
     }
+
+    const getImage = async () => {
+        try {
+            const response = await axios.get('http://localhost:3003/vacancy/1');
+            dispatch(setImageSrc(response.data.logo));
+            console.log(response.data.logo);
+            
+        } catch (error) {
+            console.error('Error fetching image:', error);
+        }
+    };
 
     useEffect(() => {
         dispatch(getVacancies());
-        const getImage = async () => {
-            try {
-                const response = await axios.get('http://localhost:3003/vacancy/1');
-                dispatch(setImageSrc(response.data.logo));
-            } catch (error) {
-                console.error('Error fetching image:', error);
-            }
-        };
         getImage();
     }, [dispatch])
+    console.log(error);
     
     return <div>
         <Modal error={error} isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit}></Modal>
